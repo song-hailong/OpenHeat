@@ -166,6 +166,9 @@ double GetMAX6675Temp()
     float MAX6675Temp;
     MAX6675Temp = thermocouple.readCelsius();
 
+    //卡尔曼滤波器
+    if (Use_KFP) MAX6675Temp = kalmanFilter(&KFP_Temp, MAX6675Temp);
+
     //记录采样间隔时间
     MAX6675TempSamplingTime = millis();
     LastMAX6675Temp = MAX6675Temp;
